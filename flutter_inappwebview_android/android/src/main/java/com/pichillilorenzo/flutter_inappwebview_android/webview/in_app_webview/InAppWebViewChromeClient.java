@@ -636,13 +636,15 @@ public class InAppWebViewChromeClient extends WebChromeClient implements PluginR
     WebView.HitTestResult result = view.getHitTestResult();
     String url = result.getExtra();
 
+    Message href2 = view.getHandler().obtainMessage();
+    view.requestFocusNodeHref(href2);
+    Bundle data = href2.getData();
     // Ensure that images with hyperlink return the correct URL, not the image source
-    Log.e(LOG_TAG, "url: " + url);
+    Log.e(LOG_TAG, "url: " + data);
     if (result.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
       Message href = view.getHandler().obtainMessage();
       view.requestFocusNodeHref(href);
       Bundle data = href.getData();
-      Log.e(LOG_TAG, "data: " + data);
       if (data != null) {
         String imageUrl = data.getString("url");
         if (imageUrl != null && !imageUrl.isEmpty()) {
