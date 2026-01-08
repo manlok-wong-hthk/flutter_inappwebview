@@ -1903,7 +1903,6 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
     public func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            self.channelDelegate?.onConsoleMessage(message: String(describing: "decidePolicyFor navigationAction: \(navigationAction.request.url?.absoluteString ?? "nil")"), messageLevel: 3)
         var decisionHandlerCalled = false
         let callback = WebViewChannelDelegate.ShouldOverrideUrlLoadingCallback()
         callback.nonNullSuccess = { (response: WKNavigationActionPolicy) in
@@ -1945,7 +1944,6 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
             let errorResponse = WebResourceResponse.init(fromWKNavigationResponse: navigationResponse)
             channelDelegate?.onReceivedHttpError(request: request, errorResponse: errorResponse)
         }
-            self.channelDelegate?.onConsoleMessage(message: String(describing: "decidePolicyFor navigationResponse: \(navigationResponse.response.url?.absoluteString ?? "nil")"), messageLevel: 3)
         
         let useOnNavigationResponse = settings?.useOnNavigationResponse
         
@@ -2008,9 +2006,6 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         currentOriginalUrl = url
         lastTouchPoint = nil
-
-        self.channelDelegate?.onConsoleMessage(message: String(describing: "didStartProvisionalNavigation: \(url?.absoluteString ?? "nil")"), messageLevel: 3)
-        print("didStartProvisionalNavigation: \(url?.absoluteString ?? "nil")")
         
         disposeWebMessageChannels()
         initializeWindowIdJS()
