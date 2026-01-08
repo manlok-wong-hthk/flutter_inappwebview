@@ -2006,6 +2006,8 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         currentOriginalUrl = url
         lastTouchPoint = nil
+
+        print("didStartProvisionalNavigation: \(url?.absoluteString ?? "nil")")
         
         disposeWebMessageChannels()
         initializeWindowIdJS()
