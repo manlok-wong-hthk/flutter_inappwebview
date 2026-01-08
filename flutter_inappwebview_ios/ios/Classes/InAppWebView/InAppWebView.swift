@@ -1903,7 +1903,7 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
     public func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            print("decidePolicyFor navigationAction: \(navigationAction.request.url?.absoluteString ?? "nil")")
+            self.channelDelegate?.onConsoleMessage(message: String(describing: "decidePolicyFor navigationAction: \(navigationAction.request.url?.absoluteString ?? "nil")"), messageLevel: 3)
         var decisionHandlerCalled = false
         let callback = WebViewChannelDelegate.ShouldOverrideUrlLoadingCallback()
         callback.nonNullSuccess = { (response: WKNavigationActionPolicy) in
@@ -2008,6 +2008,7 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
         currentOriginalUrl = url
         lastTouchPoint = nil
 
+        self.channelDelegate?.onConsoleMessage(message: String(describing: "didStartProvisionalNavigation: \(url?.absoluteString ?? "nil")"), messageLevel: 3)
         print("didStartProvisionalNavigation: \(url?.absoluteString ?? "nil")")
         
         disposeWebMessageChannels()
