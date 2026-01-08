@@ -1945,6 +1945,7 @@ public class InAppWebView: WKWebView, UIScrollViewDelegate, WKUIDelegate,
             let errorResponse = WebResourceResponse.init(fromWKNavigationResponse: navigationResponse)
             channelDelegate?.onReceivedHttpError(request: request, errorResponse: errorResponse)
         }
+            self.channelDelegate?.onConsoleMessage(message: String(describing: "decidePolicyFor navigationResponse: \(navigationResponse.response.url?.absoluteString ?? "nil")"), messageLevel: 3)
         
         let useOnNavigationResponse = settings?.useOnNavigationResponse
         
